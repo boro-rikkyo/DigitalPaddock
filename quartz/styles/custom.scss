@@ -1,33 +1,42 @@
 @use "./base.scss";
 
 // put your custom CSS here!
-:root[saved-theme="dark"] body {
+:root body {
     background-image: url('/static/background.png');
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: center;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.article-title {
+  font-family: 'STIX Two Text', 'Noto Serif JP', serif;
+}
+.page-title {
+    margin-bottom: 2rem;
+    .title-container {
+        // PageTitle.tsx 内の基本スタイルを補完・上書きする場合に記述
+        &:hover {
+            opacity: 0.8;
+        }
+    }
 }
 
 .sidebar {
     backdrop-filter: blur(2px);
     background-color: color-mix(in srgb, var(--light), transparent 20%);
-
-    // Use media query from variables or assume standard desktop breakpoint if variables not available directly in this context without import. 
-    // base.scss imported variables, so they should be available if custom.scss imports base.scss (which it does).
-    // However, custom.scss usually appends.
-
-    @media all and (min-width: 1000px) {
-        // approximating desktop if $desktop is not reliably available or to be safe. checking base.scss again, it uses $mobile, $tablet, $desktop map.
-        // base.scss uses @media all and ($desktop) which usually maps to a width.
-        // Let's use the class logic from base.scss which uses @media all and ($mobile) to change layout.
-        // We only want side borders on desktop layout.
-    }
 }
 
+/* テーマ切り替えスイッチを隠す */
+.darkmode {
+    display: none !important;
+}
+
+/*
 @media all and (min-width: 800px) {
 
-    /* Validating breakpoint */
     .sidebar.left {
         position: relative;
 
@@ -56,3 +65,4 @@
         }
     }
 }
+*/
