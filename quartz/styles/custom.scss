@@ -2,7 +2,7 @@
 
 // put your custom CSS here!
 :root body {
-    background-image: url('/static/background.png');
+    background-image: url('./static/background.png');
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -10,13 +10,20 @@
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
 }
+/* 2. 本文全体（body）にフォントを適用 */
+body, .article {
+  font-family: 'Klee One', serif !important;
+}
 
 .article-title {
-  font-family: 'STIX Two Text', 'Noto Serif JP', serif;
+    font-family: 'STIX Two Text', 'Noto Serif JP', serif;
 }
+
 .page-title {
     margin-bottom: 2rem;
+
     .title-container {
+
         // PageTitle.tsx 内の基本スタイルを補完・上書きする場合に記述
         &:hover {
             opacity: 0.8;
