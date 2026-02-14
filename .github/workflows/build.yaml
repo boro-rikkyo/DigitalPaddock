@@ -1,0 +1,45 @@
+name: Deploy Quartz to Rikkyo Server
+
+on:
+  push:
+  workflow_dispatch: # 手動実行用
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Quartzが「最終更新日」を計算するのに必要です
+          
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - name: Setup Dependency
+        run: |
+          npm install -g npm@latest
+          npm ci # npm install より高速でクリーンなインストール
+
+      - name: Build Quartz
+        run: |
+          npx quartz build
+          cp .htaccess public/.htaccess
+
+      - name: Zip Output
+        run: |
+          cd public
+          # publicフォルダの中身を site.zip に圧縮
+          zip -r ../site.zip .
+
+      - name: Upload to Server
+        env:
+          DEPLOY_URL: ${{ secrets.DEPLOY_URL }} 
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+        run: |
+          # -L: リダイレクトする場合もログを追う
+          # -f: HTTPエラーの時にActionsを失敗させる
+          curl -v -L -f -X POST -F "file=@site.zip" -F "token=$DEPLOY_TOKEN" $DEPLOY_URL

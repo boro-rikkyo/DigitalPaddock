@@ -5,30 +5,13 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [
-    Component.Comments({
-      provider: "giscus",
-      options: {
-        repo: "SKoichi26/PKmu",
-        repoId: "R_kgDOQyTNqA",
-        category: "Announcements",
-        categoryId: "DIC_kwDOQyTNqM4C1XIa",
-        themeUrl: "https://giscus.app/themes",
-        mapping: "title",
-        strict: false,
-        lightTheme: "light",
-        darkTheme: "github_dark",
-        lang: "ja",
-      }
-    }),
-  ],
+  afterBody: [],
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/jackyzha0/quartz",
       "Discord Community": "https://discord.gg/cRFFHYye7t",
     },
   }),
-
 }
 
 // components for pages that display a single page (e.g. a single note)
