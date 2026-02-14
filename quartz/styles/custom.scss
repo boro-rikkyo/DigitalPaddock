@@ -10,9 +10,11 @@
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
 }
+
 /* 2. 本文全体（body）にフォントを適用 */
-body, .article {
-  font-family: 'Klee One', serif !important;
+body,
+.article {
+    font-family: 'Klee One', serif !important;
 }
 
 .article-title {
@@ -23,10 +25,96 @@ body, .article {
     margin-bottom: 2rem;
 
     .title-container {
-
-        // PageTitle.tsx 内の基本スタイルを補完・上書きする場合に記述
         &:hover {
             opacity: 0.8;
+        }
+    }
+
+    @media all and (max-width: 600px) {
+        margin-bottom: 1rem;
+
+        .title-line {
+            font-size: 1rem; // モバイルで少し小さく
+        }
+
+        .page-title-icon {
+            height: 3rem; // アイコンも少し小さく
+        }
+    }
+}
+
+/* モバイル表示の最適化 */
+@media all and (max-width: 600px) {
+    .sidebar.left {
+        flex-wrap: wrap; // 折り返しを許可
+        flex-direction: row; // デフォルトで行方向に
+        justify-content: space-between;
+        align-items: center; // 縦方向は中央揃え
+        padding-bottom: 1rem;
+
+        // タイトル
+        .page-title {
+            order: 1;
+            margin-right: auto; // 左側に配置
+            width: auto;
+            margin-bottom: 0 !important; // マージンを消して垂直中央を揃える
+        }
+
+        .explorer {
+            order: 2;
+            margin-left: auto; // 右側に配置
+            width: auto !important; // 幅自動
+            margin-top: 0 !important; // 余白リセット
+            margin-bottom: 0 !important;
+            padding-right: 1rem; // 右端の見切れ防止
+            display: flex;
+            align-items: center;
+
+            .explorer-toggle.mobile-explorer {
+                background: none;
+                border: none;
+                padding: 0;
+                margin-left: 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+
+                svg {
+                    width: 3.2rem !important;
+                    height: 3.2rem !important;
+                    stroke: var(--dark);
+                    stroke-width: 2.5px; // 少し太くして存在感を出す
+                }
+            }
+        }
+
+        // スペーサー (MobileOnly Spacer)
+        // Flexbox の order で制御するので不要だが、念のため非表示または order 調整
+        .spacer {
+            display: none;
+        }
+
+        // 検索・ボタン類 (Flex Component)
+        .flex-component {
+            order: 3; // タイトル・ハンバーガーの下に配置
+            width: 100%; // 横幅いっぱいに
+            margin-top: 0.5rem;
+            flex-wrap: wrap; // 内部でも折り返し許可
+            justify-content: flex-start; // 左寄せ
+
+            // 検索バー
+            &>div:has(.search) {
+                width: 100%; // 検索バーを1行占有
+                flex-grow: 1;
+                margin-bottom: 0.5rem; // 下のボタンとの間隔
+            }
+
+            // その他のボタン (Darkmode, Reader, Download ...)
+            &>div:not(:has(.search)) {
+                // ボタン類は横並び
+                margin-right: 0.5rem;
+            }
         }
     }
 }
