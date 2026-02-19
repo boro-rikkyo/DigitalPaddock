@@ -48,7 +48,7 @@ const DownloadButton: QuartzComponent = ({ displayClass, cfg, fileData }: Quartz
                     </svg>
                     <span>{i18n(cfg.locale).components.downloadButton.markdown}</span>
                 </a>
-                <button id="download-pdf">
+                <button class="download-pdf">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
