@@ -21,7 +21,7 @@ jobs:
           cache: 'npm'
       - name: Setup Dependency
         run: |
-          npm install -g npm@latest
+          npm cache clean --force
           npm ci # npm install より高速でクリーンなインストール
 
       - name: Build Quartz
